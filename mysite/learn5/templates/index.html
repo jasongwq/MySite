@@ -1,0 +1,15 @@
+<form method='post'>
+{% csrf_token %}
+{% for field in form %}
+  <div>
+     {{ field.label }}:{{ field }} 
+     {{ field.errors }}
+  <div>
+{% endfor %}
+<input type="submit" value="提交">
+</form>
+<table border="1">
+{% for i in dlist %}
+<tr>{{ i|safe }}</tr>
+{% endfor %}
+</table>
