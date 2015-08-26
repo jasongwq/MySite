@@ -8,6 +8,14 @@ class AddForm(forms.Form):
     b = forms.IntegerField(label='面包')
     c = forms.IntegerField(label='馒头')
     r = forms.IntegerField(label='单号')
-    qs=Member.objects.values_list('name')
-    InMember=forms.ModelChoiceField(queryset = qs, empty_label='None')
+    MemberNameListO=Member.objects.all()#values('name')
+    # MemberNameList=[];
+    # for i in MemberNameListO:
+    #     MemberNameList.append(i['name'])
+    InMember=forms.ModelChoiceField(
+        queryset = MemberNameListO,
+        label=u"项目负责人",
+        empty_label='None'
+        )
+    
 

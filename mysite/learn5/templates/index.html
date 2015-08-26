@@ -9,7 +9,12 @@
 <input type="submit" value="提交">
 </form>
 <table border="1">
-{% for i in dlist %}
+{% for i in dlist1 %}
+<tr>{{ i|safe }}</tr>
+{% endfor %}
+</table>
+<table border="1">
+{% for i in dlist2 %}
 <tr>{{ i|safe }}</tr>
 {% endfor %}
 </table>
