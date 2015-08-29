@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 import os
 import sys
-import socketMethod
+# import socketMethod
 
 if __name__ == "__main__":
-    socketMethod.socketMethod()
+    # socketMethod.socketMethod()
 
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "mysite.settings")
 

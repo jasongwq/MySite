@@ -5,25 +5,25 @@ from django.db import models
 
 
 # class Itemname(models.Model):#成员
-# 	name   = models.CharField(max_length=4,blank=False)#名称
+# 	name   = models.CharField(max_length=20,blank=False)#名称
 # 	remark = models.TextField(blank=True)#备注
 
 class Member(models.Model):#成员 ok
-	name   = models.CharField(max_length=10,blank=False)#名称
+	name   = models.CharField(max_length=20,blank=False)#名称
 	funds  = models.FloatField(default=0.0)#资金
 	remark = models.TextField(blank=True)#备注
 	def __unicode__(self):
 		return self.name
 
 class Material(models.Model):#物品 ok
-	name   = models.CharField(max_length=4,blank=False)#名称
+	name   = models.CharField(max_length=20,blank=False)#名称
 	number = models.IntegerField(blank=False,default=0)#数量
 	units  = models.CharField(default='单位',max_length=4,blank=True)#单位
 	total  = models.FloatField(default=0)#总金额
 	remark = models.TextField(blank=True)#备注
 
 class MaterialList(models.Model):#物品 ok
-	name   = models.CharField(max_length=4,blank=False)#名称
+	name   = models.CharField(max_length=20,blank=False)#名称
 	number = models.IntegerField(blank=False,default=0)#数量
 	units  = models.CharField(default='单位',max_length=4,blank=True)#单位
 	total  = models.FloatField(default=0)#总金额

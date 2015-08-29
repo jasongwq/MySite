@@ -6,6 +6,14 @@ import SocketServer as socketserver
 import re
 import socket
 
+ScloseFlag=0;
+
+def Sclose():
+  global ScloseFlag
+  print ScloseFlag
+  return ScloseFlag
+
+
 class ClientError(Exception):
   "An exception thrown because the client gave bad input to the server."
   pass
@@ -16,7 +24,11 @@ class PythonChatServer(socketserver.ThreadingTCPServer):
   def __init__(self, server_address, RequestHandlerClass):
     """Set up an initially empty mapping between a user' s nickname
     and the file-like object used to send data to that user."""
+    # socketserver.ThreadingTCPServer.allow_reuse_address = True
+    # socketserver.TCPServer.allow_reuse_address = True
     socketserver.ThreadingTCPServer.__init__(self, server_address, RequestHandlerClass)
+    # self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    # socketserver.ThreadingTCPServer.allow_reuse_address = True
     self.users = {}
 
 class RequestHandler(socketserver.StreamRequestHandler):
@@ -70,6 +82,7 @@ class RequestHandler(socketserver.StreamRequestHandler):
         del(self.server.users[self.nickname])
     self.request.shutdown(2)
     self.request.close()
+    print 'finish'
     
   def processInput(self):
     """Reads a line from the socket input and either runs it as a
@@ -83,7 +96,12 @@ class RequestHandler(socketserver.StreamRequestHandler):
       l = '<%s> %s\n' % (self.nickname, l)
       self.broadcast(l)
     return done
-    
+
+  def quiSCommand(self,i):
+    global ScloseFlag
+    ScloseFlag=1;
+    print ScloseFlag
+
   def nickCommand(self,nickname):
     "Attempts to change a user's nickname."
     if not nickname:
@@ -157,15 +175,21 @@ class RequestHandler(socketserver.StreamRequestHandler):
         raise ClientError('No such command: "%s"' %command)
     #if input[0]!='/', which means input is not a command
     #then commandMethod will be None
+    print commandAndArg
+    print arg
     return commandMethod, arg
     
 if __name__ == '__main__':
   import sys
-  # if len(sys.argv) < 3:
-  #   print('Usage: %s [hostname] [port number]' %sys.argv[0])
-  #   sys.exit(1)
-  # hostname = sys.argv[1]
-  # port = int(sys.argv[2])
-  hostname=""
-  port=9999
-  PythonChatServer((hostname,port),RequestHandler).serve_forever()
+  if len(sys.argv) < 3:
+    print('Usage: %s [hostname] [port number]  defaulthp:""9999'  %sys.argv[0])
+    hostname=""
+    port=9999
+    # sys.exit(1)
+  else:
+    hostname = sys.argv[1]
+    port = int(sys.argv[2])
+  a=PythonChatServer((hostname,port),RequestHandler)
+  a.serve_forever()
+  a.server_close()
+
