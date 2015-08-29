@@ -21,38 +21,28 @@ class MyBaseRequestHandlerr(BaseRequestHandler):
                 # traceback.print_exc()
                 break
 
-if __name__ == "__main__":
-    #telnet 127.0.0.1 9999
-    host = ""       #主机名，可以是ip,像localhost的主机名,或""
-    port = 9994     #端口
-    addr = (host, port)
+# if __name__ == "__main__":
+#     #telnet 127.0.0.1 9999
+#     host = ""       #主机名，可以是ip,像localhost的主机名,或""
+#     port = 9994     #端口
+#     addr = (host, port)
     
-    #购置TCPServer对象，
-    server = TCPServer(addr, MyBaseRequestHandlerr)
+#     #购置TCPServer对象，
+#     server = TCPServer(addr, MyBaseRequestHandlerr)
     
-    #启动服务监听
-    server.serve_forever()
+#     #启动服务监听
+#     server.serve_forever()
 
+
+from PythonSocketBBS import SocketServerBBS
 
 def loop():
     print 'thread %s is running...' % threading.current_thread().name
-    host = ""       #主机名，可以是ip,像localhost的主机名,或""
-    port = 9999     #端口
-    addr = (host, port)
-    
-    #购置TCPServer对象，
-    server = TCPServer(addr, MyBaseRequestHandlerr)
-    
-    #启动服务监听
-    server.serve_forever()
+    hostname=""
+    port=9995
+    SocketServerBBS.PythonChatServer((hostname,port),SocketServerBBS.RequestHandler).serve_forever()
 
-    n = 0
-    while 1:
-        # n = n + 1
-        # print 'thread %s >>> %s' % (threading.current_thread().name, n)
-        time.sleep(1)
     print 'thread %s ended.' % threading.current_thread().name
-
 
 
 def socketMethod():
