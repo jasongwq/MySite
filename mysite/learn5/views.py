@@ -36,15 +36,30 @@ def index(request):
     form = AddForm()
     d=Material.objects.all()
     dlist1=[]
-    dlist1.append("<th>id</th> <th>name</th> <th>number</th> <th>units</th> <th>total</th> <th>remark</th>")
+    # dlist1.append("<th>id</th> <th>name</th> <th>number</th> <th>units</th> <th>total</th> <th>remark</th>")
+    i=0
     for a in d:
-        t="<th>%s</th> <th>%s</th> <th>%s</th> <th>%s</th> <th>%s</th> <th>%s</th>"%(a.id, a.name, a.number, a.units, a.total, a.remark)
-        dlist1.append(t)
+        dlist1.append([])
+        dlist1[i].append(a.id)
+        dlist1[i].append(a.name)
+        dlist1[i].append(a.number)
+        dlist1[i].append(a.units)
+        dlist1[i].append(a.total)
+        dlist1[i].append(a.remark)
+        
+        i=i+1
+
     d=Member.objects.all()
     dlist2=[]
-    dlist2.append("<th>id</th> <th>name</th> <th>funds</th> <th>remark</th>")
+    # dlist2.append("<th>id</th> <th>name</th> <th>funds</th> <th>remark</th>")
+    i=0
     for a in d:
-        t="<th>%s</th> <th>%s</th> <th>%s</th> <th>%s</th>"%(a.id, a.name, a.funds, a.remark)
-        dlist2.append(t)
+        dlist2.append([])
+        dlist2[i].append(a.id)
+        dlist2[i].append(a.name)
+        dlist2[i].append(a.funds)
+        dlist2[i].append(a.remark)
+        
+        i=i+1
     return render(request,'index.html', {'form': form,'dlist1': dlist1,'dlist2': dlist2})
 
